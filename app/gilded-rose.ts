@@ -33,10 +33,11 @@ export class GildedRose {
 
     item.sellIn--;
   };
-
+  
   handleAgedBrie = (itemIndex: number) => {
     const item = this.items[itemIndex];
 
+    // Aged Brie increases in quality the older it gets
     if (item.quality < 50) {
       item.quality++;
     }
@@ -51,14 +52,17 @@ export class GildedRose {
       item.quality++;
     }
 
+    // Quality increases by 2 when there are 10 days or less 
     if (item.sellIn <= 10) {
       item.quality++;
     }
 
+    // Quality increases by 3 when there are 5 days or less
     if (item.sellIn <= 5) {
       item.quality++;
     }
 
+    // Quality drops to 0 after the concert
     if (item.sellIn <= 0) {
       item.quality = 0;
     }
@@ -69,6 +73,7 @@ export class GildedRose {
   handleConjuredItem = (itemIndex: number) => {
     const item = this.items[itemIndex];
 
+    // "Conjured" items degrade in Quality twice as fast as normal items
     if (item.quality < 50) {
       item.quality--;
       item.quality--;
@@ -85,7 +90,6 @@ export class GildedRose {
     item.quality = 80;
   };
 
-  // decided
   updateQuality = () => {
     this.items.forEach((item, index) => {
       // switch statement not as performant as if statement but readable
