@@ -69,6 +69,17 @@ export class GildedRose {
     item.sellIn--;
   };
 
+  handleConjuredItem = (itemIndex: number) => {
+    const item = this.items[itemIndex];
+
+    if (item.quality < 50) {
+      item.quality--;
+      item.quality--;
+    }
+
+    item.sellIn--;
+  };
+
   updateQuality = () => {
     this.items.forEach((item, index) => {
       switch (item.name) {
@@ -87,6 +98,8 @@ export class GildedRose {
           this.handleBackstagePass(index);
           break;
         case "Conjured Mana Cake":
+          this.handleConjuredItem(index);
+          break;
         default:
           throw new Error(`No handler for ${item.name}`);
       }
