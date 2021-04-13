@@ -14,8 +14,8 @@ describe("Gilded Rose", () => {
       const gildedRose = new GildedRose([new Item(itemName, sellIn, quality)]);
       const items = gildedRose.updateQuality();
 
-      expect(items[0].quality).toStrictEqual(quality - 1);
-      expect(items[0].sellIn).toStrictEqual(sellIn - 1);
+      expect(items[0].quality).toEqual(quality - 1);
+      expect(items[0].sellIn).toEqual(sellIn - 1);
     }
   );
 
@@ -34,8 +34,8 @@ describe("Gilded Rose", () => {
       const items = gildedRose.updateQuality();
 
       // only updated twice but degraded by 3
-      expect(items[0].quality).toStrictEqual(quality - 3);
-      expect(items[0].sellIn).toStrictEqual(sellIn - 2);
+      expect(items[0].quality).toEqual(quality - 3);
+      expect(items[0].sellIn).toEqual(sellIn - 2);
     }
   );
 
@@ -56,8 +56,8 @@ describe("Gilded Rose", () => {
     gildedRose.updateQuality();
     const items = gildedRose.updateQuality();
 
-    expect(items[0].quality).toStrictEqual(0);
-    expect(items[0].sellIn).toStrictEqual(sellIn - 7);
+    expect(items[0].quality).toEqual(0);
+    expect(items[0].sellIn).toEqual(sellIn - 7);
   });
 
   it("Aged Brie increases in quality each time updated", () => {
@@ -68,8 +68,8 @@ describe("Gilded Rose", () => {
     const gildedRose = new GildedRose([new Item(name, sellIn, quality)]);
     const items = gildedRose.updateQuality();
 
-    expect(items[0].quality).toStrictEqual(quality + 1);
-    expect(items[0].sellIn).toStrictEqual(sellIn - 1);
+    expect(items[0].quality).toEqual(quality + 1);
+    expect(items[0].sellIn).toEqual(sellIn - 1);
   });
 
   it("Aged Brie should not have a quality value greater than 50", () => {
@@ -83,8 +83,8 @@ describe("Gilded Rose", () => {
     const items = gildedRose.updateQuality();
 
     // despite increasing in quality, should be capped at 50
-    expect(items[0].quality).toStrictEqual(50);
-    expect(items[0].sellIn).toStrictEqual(sellIn - 4);
+    expect(items[0].quality).toEqual(50);
+    expect(items[0].sellIn).toEqual(sellIn - 4);
   });
 
   it("Sulfuras should not decrease in quality or reduce sellIn value", () => {
@@ -99,8 +99,8 @@ describe("Gilded Rose", () => {
     gildedRose.updateQuality();
     const items = gildedRose.updateQuality();
 
-    expect(items[0].quality).toStrictEqual(50);
-    expect(items[0].sellIn).toStrictEqual(0);
+    expect(items[0].quality).toEqual(quality);
+    expect(items[0].sellIn).toEqual(sellIn);
   });
 
   it("Backstage passes should increase in quality as sellIn approaches", () => {
@@ -115,8 +115,8 @@ describe("Gilded Rose", () => {
     gildedRose.updateQuality();
     const items = gildedRose.updateQuality();
 
-    expect(items[0].quality).toStrictEqual(quality + 4);
-    expect(items[0].sellIn).toStrictEqual(sellIn - 4);
+    expect(items[0].quality).toEqual(quality + 4);
+    expect(items[0].sellIn).toEqual(sellIn - 4);
   });
 
   it("Backstage passes should increase in quality by 2 when sellIn value between 5 and 10", () => {
@@ -131,8 +131,8 @@ describe("Gilded Rose", () => {
     const items = gildedRose.updateQuality();
 
     // updated 3 times but increased by 3*2
-    expect(items[0].quality).toStrictEqual(quality + 6);
-    expect(items[0].sellIn).toStrictEqual(sellIn - 3);
+    expect(items[0].quality).toEqual(quality + 6);
+    expect(items[0].sellIn).toEqual(sellIn - 3);
   });
 
   it("Backstage passes should increase in quality by 3 when sellIn value <= 5", () => {
@@ -147,8 +147,8 @@ describe("Gilded Rose", () => {
     const items = gildedRose.updateQuality();
 
     // updated 3 times but increased by 3*3
-    expect(items[0].quality).toStrictEqual(quality + 9);
-    expect(items[0].sellIn).toStrictEqual(sellIn - 3);
+    expect(items[0].quality).toEqual(quality + 9);
+    expect(items[0].sellIn).toEqual(sellIn - 3);
   });
 
   it("Backstage passes should decrease quality to 0 sellIn value <= 0", () => {
@@ -164,8 +164,8 @@ describe("Gilded Rose", () => {
     gildedRose.updateQuality();
     const items = gildedRose.updateQuality();
 
-    expect(items[0].quality).toStrictEqual(0);
-    expect(items[0].sellIn).toStrictEqual(sellIn - 5);
+    expect(items[0].quality).toEqual(0);
+    expect(items[0].sellIn).toEqual(sellIn - 5);
   });
 
   it("Conjured items should degrade in quality twice as fast as normal items", () => {
@@ -180,7 +180,7 @@ describe("Gilded Rose", () => {
     const items = gildedRose.updateQuality();
 
     // should reduce by 3 * 2
-    expect(items[0].quality).toStrictEqual(quality - 6);
-    expect(items[0].sellIn).toStrictEqual(sellIn - 3);
+    expect(items[0].quality).toEqual(quality - 6);
+    expect(items[0].sellIn).toEqual(sellIn - 3);
   });
 });

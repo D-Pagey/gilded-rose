@@ -41,12 +41,6 @@ export class GildedRose {
     item.sellIn--;
   };
 
-  handleSulfuras = (itemIndex: number) => {
-    const item = this.items[itemIndex];
-
-    item.sellIn = 0;
-  };
-
   handleBackstagePass = (itemIndex: number) => {
     const item = this.items[itemIndex];
 
@@ -92,7 +86,6 @@ export class GildedRose {
           break;
         }
         case "Sulfuras, Hand of Ragnaros":
-          this.handleSulfuras(index);
           break;
         case "Backstage passes to a TAFKAL80ETC concert":
           this.handleBackstagePass(index);
