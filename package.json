@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "compile": "tsc --noEmit",
+    "compile": "tsc",
     "test": "jest",
     "test:watch": "jest --watchAll"
   },
