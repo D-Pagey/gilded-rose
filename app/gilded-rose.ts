@@ -17,6 +17,9 @@ export class GildedRose {
     this.items = items;
   }
 
+  // generally I'm not a fan of mutating the original array
+  // but in this case seemed quicker and cleaner than finding
+  // and replacing the item in an array
   handleStandardItem = (itemIndex: number) => {
     const item = this.items[itemIndex];
 
@@ -74,9 +77,21 @@ export class GildedRose {
     item.sellIn--;
   };
 
+  handleSulfuras = (itemIndex: number) => {
+    const item = this.items[itemIndex];
+
+    // potentially unneccessary but ensuring that if item
+    // is added with wrong quality, then at least returns correct value
+    item.quality = 80;
+  };
+
+  // decided
   updateQuality = () => {
     this.items.forEach((item, index) => {
+      // switch statement not as performant as if statement but readable
+      // and easy to add / remove items in the future
       switch (item.name) {
+        // the first few items share the handler for "standard" degredation
         case "+5 Dexterity Vest":
         case "Elixir of the Mongoose":
           this.handleStandardItem(index);
@@ -86,6 +101,7 @@ export class GildedRose {
           break;
         }
         case "Sulfuras, Hand of Ragnaros":
+          this.handleSulfuras(index);
           break;
         case "Backstage passes to a TAFKAL80ETC concert":
           this.handleBackstagePass(index);
@@ -94,6 +110,8 @@ export class GildedRose {
           this.handleConjuredItem(index);
           break;
         default:
+          // quite a nice developer experience for if you pass in an item
+          // that doesn't have a handler
           throw new Error(`No handler for ${item.name}`);
       }
     });

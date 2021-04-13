@@ -14,6 +14,7 @@ describe("Gilded Rose", () => {
       const gildedRose = new GildedRose([new Item(itemName, sellIn, quality)]);
       const items = gildedRose.updateQuality();
 
+      // this is testing the "standard" degredation case
       expect(items[0].quality).toEqual(quality - 1);
       expect(items[0].sellIn).toEqual(sellIn - 1);
     }
@@ -33,7 +34,7 @@ describe("Gilded Rose", () => {
       gildedRose.updateQuality();
       const items = gildedRose.updateQuality();
 
-      // only updated twice but degraded by 3
+      // only updated twice but degraded by 3 (1 + (1*2))
       expect(items[0].quality).toEqual(quality - 3);
       expect(items[0].sellIn).toEqual(sellIn - 2);
     }
@@ -56,6 +57,7 @@ describe("Gilded Rose", () => {
     gildedRose.updateQuality();
     const items = gildedRose.updateQuality();
 
+    // even though sellIn date is negative, always expect quality to be 0
     expect(items[0].quality).toEqual(0);
     expect(items[0].sellIn).toEqual(sellIn - 7);
   });
@@ -68,10 +70,14 @@ describe("Gilded Rose", () => {
     const gildedRose = new GildedRose([new Item(name, sellIn, quality)]);
     const items = gildedRose.updateQuality();
 
+    // testing general case of quality increasing as sell in decreasing
     expect(items[0].quality).toEqual(quality + 1);
     expect(items[0].sellIn).toEqual(sellIn - 1);
   });
 
+  // this test doesn't protect against putting in an item that has a quality
+  // above 50, but that wasn't covered in initial implementation so assume
+  // that's expected
   it("Aged Brie should not have a quality value greater than 50", () => {
     const sellIn = 2;
     const quality = 50;
@@ -87,9 +93,11 @@ describe("Gilded Rose", () => {
     expect(items[0].sellIn).toEqual(sellIn - 4);
   });
 
+  // assuming that whatever we input we expect as output
+  // added a case in gilded-rose.ts to ensure always 80 quality regardless of input
   it("Sulfuras should not decrease in quality or reduce sellIn value", () => {
     const sellIn = 2;
-    const quality = 50;
+    const quality = 80;
 
     const gildedRose = new GildedRose([
       new Item("Sulfuras, Hand of Ragnaros", sellIn, quality),
@@ -103,6 +111,7 @@ describe("Gilded Rose", () => {
     expect(items[0].sellIn).toEqual(sellIn);
   });
 
+  // decided to split this case into multiple tests to check each scenario
   it("Backstage passes should increase in quality as sellIn approaches", () => {
     const sellIn = 15;
     const quality = 20;
@@ -164,6 +173,7 @@ describe("Gilded Rose", () => {
     gildedRose.updateQuality();
     const items = gildedRose.updateQuality();
 
+    // once passed the sell by date, quality always 0
     expect(items[0].quality).toEqual(0);
     expect(items[0].sellIn).toEqual(sellIn - 5);
   });
