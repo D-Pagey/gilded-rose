@@ -100,7 +100,7 @@ describe("Gilded Rose", () => {
     const items = gildedRose.updateQuality();
 
     expect(items[0].quality).toStrictEqual(50);
-    expect(items[0].sellIn).toStrictEqual(sellIn);
+    expect(items[0].sellIn).toStrictEqual(0);
   });
 
   it("Backstage passes should increase in quality as sellIn approaches", () => {
